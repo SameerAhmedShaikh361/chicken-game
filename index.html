@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+            width: 100%;
+            background-image: url("backgrond.jpg");
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<script>
+    var timer = document.createElement("h1");
+    document.body.appendChild(timer);
+    var time;
+    var shoot = 0;
+    function movingBirds() {
+
+        var top = Math.random()* 300;
+        var left = 0;
+
+
+        var birds = document.createElement("img");
+        birds.setAttribute("src", "birds.gif");
+        birds.style.width = "90px";
+        birds.style.cursor = 'crosshair' ;
+        birds.style.height = "70px";
+        document.body.appendChild(birds);
+
+
+        birds.addEventListener("click",function(){
+            console.log(++shoot);
+            setInterval(function(){
+                birds.style.top = top++ + "px";
+            },1)
+
+        });
+
+        var position = setInterval(function () {
+
+            birds.style.position = "absolute";
+            birds.style.left = ++left + 'px';
+            birds.style.top = top + "px";
+            if (birds.style.left === (document.body.clientWidth) - 80 + 'px') {
+                clearInterval(position);
+                document.body.removeChild(birds)
+            }
+
+        }, 8);
+
+        var second = 60;
+        var pre = setInterval(function() {
+            timer.innerText  = "Time Remaining " + --second;
+            if(second === 0) {
+                alert('Your score ' +shoot);
+                location.reload();
+                clearInterval(pre);
+
+            }
+        },1000);
+
+    }
+
+
+    setInterval(movingBirds, 1000)
+</script>
+
+</body>
+</html>
